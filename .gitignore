@@ -66,6 +66,8 @@ Backup of *.doc*
 ################################################################################
 
 ## Core latex/pdflatex auxiliary files:
+*.tex
+*.pdf
 *.aux
 *.lof
 *.log
@@ -95,6 +97,7 @@ Backup of *.doc*
 *.bbl
 *.bcf
 *.blg
+*.bib
 *-blx.aux
 *-blx.bib
 *.run.xml
