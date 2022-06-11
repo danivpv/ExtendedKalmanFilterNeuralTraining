@@ -1,8 +1,8 @@
-# Daniel Ivan Parra Verde
+# Extended Kalman Filter Algorithm for Neural Training
 
 This code base is using the Julia Language and [DrWatson](https://juliadynamics.github.io/DrWatson.jl/stable/)
 to make a reproducible scientific project named
-> Daniel Ivan Parra Verde
+> Extended Kalman Filter Algorithm for Neural Training
 
 To (locally) reproduce this project, do the following:
 
