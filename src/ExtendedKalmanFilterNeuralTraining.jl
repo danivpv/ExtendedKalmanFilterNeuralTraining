@@ -2,18 +2,24 @@ module ExtendedKalmanFilterNeuralTraining
 
 export train!
 export EKF!, TikonovEKF!
-export IAV, HIV
 
 # Dependencies
-using Reexport, ForwardDiff, UnPack, Random
-using ModelingToolkit, DataFrames, DifferentialEquations, LinearAlgebra
+using Reexport, UnPack, ForwardDiff
+@reexport using Revise, DifferentialEquations, DataFrames, LinearAlgebra, Statistics, Random
+ # Reexport, UnPack, ForwardDiff, Dictionaries, Revise, DifferentialEquations, Plots, LaTeXStrings, XLSX
+# Case studies functions with t as independent variable and d as derivative operator 
+include("sample_models.jl")
+export IAV, HIV, IAV_model, HIV_model
 
-# Case Studies with t as independent variable and d as derivative operator 
-@variables t 
-d = Differential(t) 
-include("SampleODEs.jl")
+include("plots.jl")
+export HIV_plot
 
+include("noise_robustness_simulations.jl")
+export noise_robustness_simulations, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
+export +, -, /, map
+export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ
 
+# Main training cycle
 function train!(F, measurements, params; algorithm=EKF!(), save_weights=false)
     sts_vars = sort(names(measurements))
     @assert sort(collect(keys(F(1)))) == sts_vars == sort(collect(keys(params)))

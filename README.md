@@ -18,3 +18,7 @@ To (locally) reproduce this project, do the following:
 
 This will install all necessary packages for you to be able to run the scripts and
 everything should work out of the box, including correctly finding local paths.
+
+Jupyter case studies can be found inside scripts folder. Algorithmic coding found in src/ExtendedKalmanFilterNeuralTraining.jl
+
+Vision: Development of a general NN training algorithm with a MSE loss in flux composable with SciML ecosystem.
