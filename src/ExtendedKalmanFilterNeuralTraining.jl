@@ -7,6 +7,9 @@ export EKF!, TikonovEKF!
 using Reexport, UnPack, ForwardDiff
 @reexport using Revise, DifferentialEquations, DataFrames, LinearAlgebra, Statistics, Random
 
+include("sample_models.jl")
+export IAV, HIV, IAV_model, HIV_model
+
 include("noise_robustness_simulations.jl")
 export noise_robustness_simulations, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
 export +, -, /, map
