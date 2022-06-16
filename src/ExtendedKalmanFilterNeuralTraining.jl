@@ -6,13 +6,6 @@ export EKF!, TikonovEKF!
 # Dependencies
 using Reexport, UnPack, ForwardDiff
 @reexport using Revise, DifferentialEquations, DataFrames, LinearAlgebra, Statistics, Random
- # Reexport, UnPack, ForwardDiff, Dictionaries, Revise, DifferentialEquations, Plots, LaTeXStrings, XLSX
-# Case studies functions with t as independent variable and d as derivative operator 
-include("sample_models.jl")
-export IAV, HIV, IAV_model, HIV_model
-
-include("plots.jl")
-export HIV_plot
 
 include("noise_robustness_simulations.jl")
 export noise_robustness_simulations, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
