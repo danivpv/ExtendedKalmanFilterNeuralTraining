@@ -15,7 +15,7 @@ include("plots.jl")
 export HIV_plot
 
 include("noise_robustness_simulations.jl")
-export noise_robustness_simulations, noise_robustness_simulation, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
+export noise_robustness_simulation, makesim, noise_robustness_simulation, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
 export +, -, /, map
 export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ, algorithms, noise_types
 
