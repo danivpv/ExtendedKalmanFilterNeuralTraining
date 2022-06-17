@@ -4,14 +4,14 @@ export train!
 export EKF!, TikonovEKF!
 
 # Dependencies
-using Reexport, UnPack, ForwardDiff
-@reexport using Revise, DifferentialEquations, DataFrames, LinearAlgebra, Statistics, Random
+using Reexport, UnPack, ForwardDiff, LinearAlgebra, Statistics, Random
+@reexport using Revise, DataFrames, XLSX
 
 include("sample_models.jl")
 export IAV, HIV, IAV_model, HIV_model
 
-include("noise_robustness_simulations.jl")
-export noise_robustness_simulations, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
+include("noise_robustness.jl")
+export noise_robustness
 export +, -, /, map
 export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ
 
