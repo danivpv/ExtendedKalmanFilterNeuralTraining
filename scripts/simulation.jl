@@ -29,12 +29,12 @@ allparams = Dict(
 dicts = dict_list(allparams)
 for d in dicts
     f = makesim(d, x)
-    wsave(datadir("EFKvsTikonovEFK", savename(d, "jld2")), f)
+    wsave(datadir("EKFvsTikonovEKF", savename(d, "jld2")), f)
 end
 
-EFKvsTikonovEFK = collect_results(datadir("EFKvsTikonovEFK"))
+EKFvsTikonovEKF = collect_results(datadir("EKFvsTikonovEKF"))
 
-XLSX.writetable(datadir("EFKvsTikonovEFK", "full_table.xlsx"), EFKvsTikonovEFK)
+XLSX.writetable(datadir("EKFvsTikonovEKF", "full_table.xlsx"), EKFvsTikonovEKF, overwrite=true)
 
 
 ### Simulation 2
@@ -54,7 +54,7 @@ end
 
 Robustness = collect_results(datadir("Robustness"))
 
-XLSX.writetable(datadir("Robustness", "full_table.xlsx"), Robustness)
+XLSX.writetable(datadir("Robustness", "full_table.xlsx"), Robustness, overwrite=true)
 
 
 ### Simulation 3
@@ -74,4 +74,4 @@ end
 
 NoiseTypeComparison = collect_results(datadir("NoiseTypeComparison"))
 
-XLSX.writetable(datadir("NoiseTypeComparison", "full_table.xlsx"), NoiseTypeComparison)
+XLSX.writetable(datadir("NoiseTypeComparison", "full_table.xlsx"), NoiseTypeComparison, overwrite=true)
