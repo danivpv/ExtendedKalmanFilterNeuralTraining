@@ -1,5 +1,5 @@
 using Pkg
-Pkg.activate("..")
+Pkg.activate("~/daniel/ExtendedKalmanFilterNeuralTraining")
 Pkg.instantiate()
 
 using DrWatson
