@@ -1,7 +1,9 @@
 using Pkg
 Pkg.activate("..")
 Pkg.instantiate()
+
 using DrWatson
+using ExtendedKalmanFilterNeuralTraining
 #@quickactivate :ExtendedKalmanFilterNeuralTraining
 #@quickactivate "ExtendedKalmanFilterNeuralTraining"; include(srcdir("ExtendedKalmanFilterNeuralTraining.jl"))
 
