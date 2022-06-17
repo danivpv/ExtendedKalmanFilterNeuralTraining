@@ -9,16 +9,6 @@ uniform_noise(ϵ) = (col -> col + ϵ * col  .* (rand(Float64, size(col)) * 2 .- 
 dBs2ϵ(x) = sqrt(3*10^(-x/10))
 dBs2σ(x) = sqrt(10^(-x/10))
 
-algorithms = @strdict EKF! TikonovEKF!
-noise_types = @strdict gaussian_noise uniform_noise
-
-function makesim(d::Dict, x; α = 5e15)
-    copy_d = deepcopy(d)
-    @unpack N, alg, dB, noise = copy_d
-    means = noise_robustness(N, x, algorithms[alg](α=α), noise_types[noise], dBs2σ(dB));
-    return merge(copy_d, means)
-end
-
 function noise_robustness(N, true_data, algorithm, noise_func, noise_parameter)
     sts = names(true_data)
     means = Dict(join([var, m, ref], "_") => 0.0 for var in sts, m in ["MSE", "MRE"] for ref in ["ground_truth", "noisy_data"])

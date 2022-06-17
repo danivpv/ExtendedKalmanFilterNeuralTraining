@@ -2,6 +2,7 @@ module ExtendedKalmanFilterNeuralTraining
 
 export train!
 export EKF!, TikonovEKF!
+export makesim
 
 # Dependencies
 using Reexport, UnPack, ForwardDiff, LinearAlgebra, Statistics, Random
@@ -11,7 +12,7 @@ include("sample_models.jl")
 export IAV, HIV, IAV_model, HIV_model
 
 include("noise_robustness.jl")
-export noise_robustness, makesim
+export noise_robustness
 export +, -, /, map
 export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ
 
@@ -68,6 +69,18 @@ function TikonovEKF!(;α=1.0)
         ω .+= η * K * error
         P .+= -K * H' * P + Q
     end)
+end
+
+# Simulations
+
+algorithms = @strdict EKF! TikonovEKF!
+noise_types = @strdict gaussian_noise uniform_noise
+
+function makesim(d::Dict, x; α = 5e15)
+    copy_d = deepcopy(d)
+    @unpack N, alg, dB, noise = copy_d
+    means = noise_robustness(N, x, algorithms[alg](α=α), noise_types[noise], dBs2σ(dB));
+    return merge(copy_d, means)
 end
 
 end # module
