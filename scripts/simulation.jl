@@ -1,5 +1,8 @@
+using Pkg
+Pkg.activate("..")
+Pkg.instantiate()
 using DrWatson
-@quickactivate :ExtendedKalmanFilterNeuralTraining
+#@quickactivate :ExtendedKalmanFilterNeuralTraining
 #@quickactivate "ExtendedKalmanFilterNeuralTraining"; include(srcdir("ExtendedKalmanFilterNeuralTraining.jl"))
 
 using ModelingToolkit, DifferentialEquations
