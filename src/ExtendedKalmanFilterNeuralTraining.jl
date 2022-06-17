@@ -15,9 +15,9 @@ include("plots.jl")
 export HIV_plot
 
 include("noise_robustness_simulations.jl")
-export noise_robustness_simulations, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
+export noise_robustness_simulations, noise_robustness_simulation, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
 export +, -, /, map
-export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ
+export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ, algorithms, noise_types
 
 # Main training cycle
 function train!(F, measurements, params; algorithm=EKF!(), save_weights=false)
@@ -73,5 +73,8 @@ function TikonovEKF!(;α=1.0)
         P .+= -K * H' * P + Q
     end)
 end
+
+algorithms = @strdict EKF! TikonovEKF!
+noise_types = @strdict gaussian_noise uniform_noise
 
 end # module
