@@ -11,7 +11,7 @@ include("sample_models.jl")
 export IAV, HIV, IAV_model, HIV_model
 
 include("noise_robustness.jl")
-export noise_robustness
+export noise_robustness, makesim
 export +, -, /, map
 export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ
 
