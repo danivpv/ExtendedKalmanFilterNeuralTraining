@@ -4,21 +4,8 @@ This code base is using the Julia Language and [DrWatson](https://juliadynamics.
 to make a reproducible scientific project named
 > Extended Kalman Filter Algorithm for Neural Training
 
-To (locally) reproduce this project, do the following:
+To (locally) reproduce this project, do the following
 
-0. Download this code base. Notice that raw data are typically not included in the
-   git-history and may need to be downloaded independently.
-1. Open a Julia console and do:
-   ```
-   julia> using Pkg
-   julia> Pkg.add("DrWatson") # install globally, for using `quickactivate`
-   julia> Pkg.activate("path/to/this/project")
-   julia> Pkg.instantiate()
-   ```
+This code base is meant to develop scripts for a server without graphical interface. A Julia docker image with the precompiled dependencies is recommended to avoid computational overhead.
 
-This will install all necessary packages for you to be able to run the scripts and
-everything should work out of the box, including correctly finding local paths.
-
-Jupyter case studies can be found inside scripts folder. Algorithmic coding found in src/ExtendedKalmanFilterNeuralTraining.jl
-
-Vision: Development of a general NN training algorithm with a MSE loss in flux composable with SciML ecosystem.
+.jl files in scripts directory run independently with dependencies installed and compiled during execution if necessary. 
