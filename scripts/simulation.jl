@@ -34,8 +34,7 @@ end
 
 EKFvsTikonovEKF = collect_results(datadir("EKFvsTikonovEKF"))
 
-XLSX.writetable(datadir("EKFvsTikonovEKF", "full_table.xlsx"), EKFvsTikonovEKF, overwrite=true)
-
+XLSX.writetable(datadir("EKFvsTikonovEKF", "full_table.xlsx"), EKFvsTikonovEKF; overwrite=true)
 
 ### Simulation 2
 
@@ -75,3 +74,7 @@ end
 NoiseTypeComparison = collect_results(datadir("NoiseTypeComparison"))
 
 XLSX.writetable(datadir("NoiseTypeComparison", "full_table.xlsx"), NoiseTypeComparison, overwrite=true)
+
+### Set permissions of created dirs to public
+
+chmod("data", 0o777; recursive=true)
