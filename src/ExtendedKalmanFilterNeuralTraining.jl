@@ -6,15 +6,15 @@ export EKF!, TikonovEKF!
 # Dependencies
 using Reexport, UnPack, ForwardDiff
 @reexport using Revise, DifferentialEquations, DataFrames, LinearAlgebra, Statistics, Random
- # Reexport, UnPack, ForwardDiff, Dictionaries, Revise, DifferentialEquations, Plots, LaTeXStrings, XLSX
-# Case studies functions with t as independent variable and d as derivative operator 
+
+# Case studies functions
 include("sample_models.jl")
-export IAV, HIV, IAV_model, HIV_model
+export IAV, HIV, COVID19, IAV_model, HIV_model, COVID19_model
 
 include("plots.jl")
 export HIV_plot
 
-include("noise_robustness_simulations.jl")
+include("noise_robustness.jl")
 export noise_robustness_simulation, makesim, noise_robustness_simulation, DataSchema, get_sims_data, merge_sims, export_df, import_df, export_df_dict
 export +, -, /, map
 export gaussian_noise, uniform_noise, dBs2σ, dBs2ϵ, algorithms, noise_types
@@ -65,7 +65,7 @@ function TikonovEKF!(;α=1.0)
 
         H = ForwardDiff.jacobian(F, ω)' #requires alloc, gradient might be more efficient
         invM = R .+ H' * P * H # scalar
-        ReM = inv(invM' * invM + Matrix(α * I, size(invM))) * invM'
+        ReM = inv(invM' * invM .+ α) * invM'
         K = P * H * ReM # vector
 
         # mutates

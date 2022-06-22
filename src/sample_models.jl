@@ -48,6 +48,24 @@ function HIV(
     ODESystem(eqs, t, sts, ps; name)
 end
 
+function COVID19( 
+    V0 = 0.31, T0 = 1e6,
+    p = 5.01, r = 0.316, c_T = 1.e-6,
+    k_T = 5.01e5, δ_T = 0.1, K = 1.e9, c = 2.4, s_T = 0.1 * 1e6;
+    name
+    )
+
+    ps = @parameters p=p r=r c_T=c_T s_T=s_T k_T=k_T δ_T=δ_T K=K c=c
+    sts = @variables T(t)=T0 V(t)=V0
+
+    eqs = [
+        d(V) ~ p * V * (1 - V / K) - c * V - c_T * V * T,
+        d(T) ~ s_T + r * T * (V^2 / (V^2 + k_T^2)) - δ_T * T
+        ]
+
+    ODESystem(eqs, t, sts, ps; name)
+end
+
 using LinearAlgebra: I, dot
 
 function HIV_model(x)
@@ -147,6 +165,37 @@ function IAV_model(x::DataFrame, u)
 
     return RHONN, params
 end
+
+function COVID19_model(x::DataFrame)
+    T = Dict{String,Any}()
+    V = Dict{String,Any}()
+    params = Dict{String,Any}()
+    
+    Q = Matrix(1.0e6I, 3, 3)
+    R = 1.0e2
+    η = 1
+    P = Matrix(1000.0I, 3, 3)
+    ω = rand(3)*0.5
+    @pack! V = Q, R, η, P, ω
+
+    Q = Matrix(1.0e6I, 3, 3)
+    R = 1.0e2
+    η = 1
+    P = Matrix(1000.0I, 3, 3)
+    ω = rand(3)*10000
+    @pack! T = Q, R, η, P, ω 
+
+    @pack! params = V, T
+
+    ϕ(v) = 1 / (1 + exp(-v))
+    RHONN(k) = Dict(
+        "V" => (ω -> [dot(ω, [ϕ(x[k,"V"]) * ϕ(x[k,"V"]), ϕ(x[k,"T"]) * ϕ(x[k,"V"]), ϕ(x[k,"V"])])]), 
+        "T" => (ω -> [dot(ω, [1., ϕ(x[k,"T"]) * ϕ(x[k,"V"]), ϕ(x[k,"T"])])])
+        )
+
+    return RHONN, params
+end
+
 
 # Cancer
 
